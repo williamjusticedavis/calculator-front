@@ -5,9 +5,14 @@ const Calculator = () => {
   const [isScientific, setIsScientific] = useState(false);
 
   const appendToDisplay = (value) => {
-    if (value === '.' && display.endsWith('.')) return; // Prevent consecutive dots
-    // Prevent multiple dots within the same number
-    if (value === '.' && /(\d*\.\d*)$/.test(display)) return;
+    if (value === '.') {
+      // Split the display at operators to get the last number segment
+      const segments = display.split(/[\+\-\*\/]/);
+      const lastSegment = segments[segments.length - 1];
+      
+      // If the last segment already contains a dot, return without adding another dot
+      if (lastSegment.includes('.')) return;
+    }
     setDisplay(display + value);
   };
 
