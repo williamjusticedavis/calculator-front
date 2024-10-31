@@ -21,7 +21,7 @@ const Calculator = () => {
 
   const handleApiCall = async () => {
     try {
-      const response = await fetch('http://localhost:3000/api/trigger');
+      const response = await fetch('https://calculator-back-mn8p.onrender.com/api/trigger');
       const data = await response.json();
       alert(data.message);
     } catch (error) {
@@ -29,6 +29,7 @@ const Calculator = () => {
       console.error('Error:', error);
     }
   };
+  
 
   return (
     <div className="max-w-xs mx-auto p-4 bg-gray-800 rounded-lg shadow-lg">
