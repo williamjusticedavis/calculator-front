@@ -55,52 +55,74 @@ const Calculator = () => {
         {isScientific ? "Basic Mode" : "Scientific Mode"}
       </button>
 
-      <div className={`grid gap-2 ${isScientific ? 'grid-cols-4' : 'grid-cols-4'}`}>
-        {/* Top Row for Clear and Scientific Buttons */}
-        <button onClick={clearDisplay} className="p-4 bg-red-500 text-white rounded hover:bg-red-600">C</button>
-        {isScientific && (
+      <div className={`grid gap-2 ${isScientific ? 'grid-cols-5' : 'grid-cols-4'}`}>
+        {isScientific ? (
           <>
+            {/* First Row */}
+            <button onClick={clearDisplay} className="p-4 bg-red-500 text-white rounded hover:bg-red-600">C</button>
             <button onClick={() => appendToDisplay('Math.sqrt(')} className="p-4 bg-purple-500 text-white rounded hover:bg-purple-600">√</button>
             <button onClick={() => appendToDisplay('**')} className="p-4 bg-purple-500 text-white rounded hover:bg-purple-600">^</button>
             <button onClick={() => appendToDisplay('%')} className="p-4 bg-purple-500 text-white rounded hover:bg-purple-600">%</button>
-          </>
-        )}
-        {!isScientific && <div className="col-span-3"></div>} {/* Empty space if not in scientific mode */}
+            <button onClick={() => appendToDisplay('Math.PI')} className="p-4 bg-purple-500 text-white rounded hover:bg-purple-600">π</button>
 
-        {/* Scientific Functions Row */}
-        {isScientific && (
-          <>
+            {/* Second Row */}
             <button onClick={() => appendToDisplay('Math.sin(')} className="p-4 bg-purple-500 text-white rounded hover:bg-purple-600">sin</button>
             <button onClick={() => appendToDisplay('Math.cos(')} className="p-4 bg-purple-500 text-white rounded hover:bg-purple-600">cos</button>
             <button onClick={() => appendToDisplay('Math.tan(')} className="p-4 bg-purple-500 text-white rounded hover:bg-purple-600">tan</button>
             <button onClick={() => appendToDisplay('(')} className="p-4 bg-gray-500 text-white rounded hover:bg-gray-600">(</button>
             <button onClick={() => appendToDisplay(')')} className="p-4 bg-gray-500 text-white rounded hover:bg-gray-600">)</button>
+
+            {/* Third Row */}
+            <button onClick={() => appendToDisplay('7')} className="p-4 bg-gray-600 text-white rounded hover:bg-gray-700">7</button>
+            <button onClick={() => appendToDisplay('8')} className="p-4 bg-gray-600 text-white rounded hover:bg-gray-700">8</button>
+            <button onClick={() => appendToDisplay('9')} className="p-4 bg-gray-600 text-white rounded hover:bg-gray-700">9</button>
+            <button onClick={() => appendToDisplay('+')} className="p-4 bg-blue-500 text-white rounded hover:bg-blue-600">+</button>
+            <button onClick={() => appendToDisplay('-')} className="p-4 bg-blue-500 text-white rounded hover:bg-blue-600">-</button>
+
+            {/* Fourth Row */}
+            <button onClick={() => appendToDisplay('4')} className="p-4 bg-gray-600 text-white rounded hover:bg-gray-700">4</button>
+            <button onClick={() => appendToDisplay('5')} className="p-4 bg-gray-600 text-white rounded hover:bg-gray-700">5</button>
+            <button onClick={() => appendToDisplay('6')} className="p-4 bg-gray-600 text-white rounded hover:bg-gray-700">6</button>
+            <button onClick={() => appendToDisplay('/')} className="p-4 bg-blue-500 text-white rounded hover:bg-blue-600">/</button>
+            <button onClick={() => appendToDisplay('*')} className="p-4 bg-blue-500 text-white rounded hover:bg-blue-600">*</button>
+
+            {/* Fifth Row */}
+            <button onClick={() => appendToDisplay('1')} className="p-4 bg-gray-600 text-white rounded hover:bg-gray-700">1</button>
+            <button onClick={() => appendToDisplay('2')} className="p-4 bg-gray-600 text-white rounded hover:bg-gray-700">2</button>
+            <button onClick={() => appendToDisplay('3')} className="p-4 bg-gray-600 text-white rounded hover:bg-gray-700">3</button>
+            <button onClick={() => appendToDisplay('.')} className="p-4 bg-gray-600 text-white rounded hover:bg-gray-700">.</button>
+            <button onClick={calculateResult} className="row-span-2 p-4 bg-green-500 text-white rounded hover:bg-green-600">=</button>
+
+            {/* Sixth Row */}
+            <button onClick={() => appendToDisplay('0')} className="col-span-2 p-4 bg-gray-600 text-white rounded hover:bg-gray-700">0</button>
+            <button onClick={handleApiCall} className="col-span-2 p-4 bg-purple-500 text-white rounded hover:bg-purple-600">API</button>
+          </>
+        ) : (
+          <>
+            {/* Regular Calculator Layout */}
+            <button onClick={clearDisplay} className="p-4 bg-red-500 text-white rounded hover:bg-red-600">C</button>
+            <button onClick={() => appendToDisplay('/')} className="p-4 bg-blue-500 text-white rounded hover:bg-blue-600">/</button>
+            <button onClick={() => appendToDisplay('*')} className="p-4 bg-blue-500 text-white rounded hover:bg-blue-600">*</button>
+            <button onClick={() => appendToDisplay('-')} className="p-4 bg-blue-500 text-white rounded hover:bg-blue-600">-</button>
+
+            <button onClick={() => appendToDisplay('7')} className="p-4 bg-gray-600 text-white rounded hover:bg-gray-700">7</button>
+            <button onClick={() => appendToDisplay('8')} className="p-4 bg-gray-600 text-white rounded hover:bg-gray-700">8</button>
+            <button onClick={() => appendToDisplay('9')} className="p-4 bg-gray-600 text-white rounded hover:bg-gray-700">9</button>
+            <button onClick={() => appendToDisplay('+')} className="p-4 bg-blue-500 text-white rounded hover:bg-blue-600">+</button>
+
+            <button onClick={() => appendToDisplay('4')} className="p-4 bg-gray-600 text-white rounded hover:bg-gray-700">4</button>
+            <button onClick={() => appendToDisplay('5')} className="p-4 bg-gray-600 text-white rounded hover:bg-gray-700">5</button>
+            <button onClick={() => appendToDisplay('6')} className="p-4 bg-gray-600 text-white rounded hover:bg-gray-700">6</button>
+            <button onClick={calculateResult} className="row-span-2 p-4 bg-green-500 text-white rounded hover:bg-green-600">=</button>
+
+            <button onClick={() => appendToDisplay('1')} className="p-4 bg-gray-600 text-white rounded hover:bg-gray-700">1</button>
+            <button onClick={() => appendToDisplay('2')} className="p-4 bg-gray-600 text-white rounded hover:bg-gray-700">2</button>
+            <button onClick={() => appendToDisplay('3')} className="p-4 bg-gray-600 text-white rounded hover:bg-gray-700">3</button>
+
+            <button onClick={() => appendToDisplay('0')} className="col-span-2 p-4 bg-gray-600 text-white rounded hover:bg-gray-700">0</button>
+            <button onClick={() => appendToDisplay('.')} className="p-4 bg-gray-600 text-white rounded hover:bg-gray-700">.</button>
           </>
         )}
-
-        {/* Operations Row */}
-        <button onClick={() => appendToDisplay('/')} className="p-4 bg-blue-500 text-white rounded hover:bg-blue-600">/</button>
-        <button onClick={() => appendToDisplay('*')} className="p-4 bg-blue-500 text-white rounded hover:bg-blue-600">*</button>
-        <button onClick={() => appendToDisplay('-')} className="p-4 bg-blue-500 text-white rounded hover:bg-blue-600">-</button>
-        <button onClick={() => appendToDisplay('+')} className="p-4 bg-blue-500 text-white rounded hover:bg-blue-600">+</button>
-
-        {/* Number Pad */}
-        <button onClick={() => appendToDisplay('7')} className="p-4 bg-gray-600 text-white rounded hover:bg-gray-700">7</button>
-        <button onClick={() => appendToDisplay('8')} className="p-4 bg-gray-600 text-white rounded hover:bg-gray-700">8</button>
-        <button onClick={() => appendToDisplay('9')} className="p-4 bg-gray-600 text-white rounded hover:bg-gray-700">9</button>
-        <button onClick={calculateResult} className="row-span-2 p-4 bg-green-500 text-white rounded hover:bg-green-600">=</button>
-
-        <button onClick={() => appendToDisplay('4')} className="p-4 bg-gray-600 text-white rounded hover:bg-gray-700">4</button>
-        <button onClick={() => appendToDisplay('5')} className="p-4 bg-gray-600 text-white rounded hover:bg-gray-700">5</button>
-        <button onClick={() => appendToDisplay('6')} className="p-4 bg-gray-600 text-white rounded hover:bg-gray-700">6</button>
-
-        <button onClick={() => appendToDisplay('1')} className="p-4 bg-gray-600 text-white rounded hover:bg-gray-700">1</button>
-        <button onClick={() => appendToDisplay('2')} className="p-4 bg-gray-600 text-white rounded hover:bg-gray-700">2</button>
-        <button onClick={() => appendToDisplay('3')} className="p-4 bg-gray-600 text-white rounded hover:bg-gray-700">3</button>
-        
-        <button onClick={() => appendToDisplay('0')} className="col-span-2 p-4 bg-gray-600 text-white rounded hover:bg-gray-700">0</button>
-        <button onClick={() => appendToDisplay('.')} className="p-4 bg-gray-600 text-white rounded hover:bg-gray-700">.</button>
-        <button onClick={handleApiCall} className="p-4 bg-purple-500 text-white rounded hover:bg-purple-600">API</button>
       </div>
     </div>
   );
