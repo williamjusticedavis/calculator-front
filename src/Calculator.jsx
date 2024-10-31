@@ -6,11 +6,8 @@ const Calculator = () => {
 
   const appendToDisplay = (value) => {
     if (value === '.') {
-      // Split the display at operators to get the last number segment
       const segments = display.split(/[\+\-\*\/]/);
       const lastSegment = segments[segments.length - 1];
-      
-      // If the last segment already contains a dot, return without adding another dot
       if (lastSegment.includes('.')) return;
     }
     setDisplay(display + value);
@@ -18,7 +15,7 @@ const Calculator = () => {
 
   const calculateResult = () => {
     try {
-      setDisplay(eval(display).toString()); // Be cautious with eval, especially with user input
+      setDisplay(eval(display).toString()); // Caution: eval can be unsafe for untrusted input
     } catch {
       setDisplay('Error');
     }
@@ -59,41 +56,51 @@ const Calculator = () => {
       </button>
 
       <div className={`grid gap-2 ${isScientific ? 'grid-cols-5' : 'grid-cols-4'}`}>
+        {/* Top Row */}
         <button onClick={clearDisplay} className="p-4 bg-red-500 text-white rounded hover:bg-red-600">C</button>
-        <button onClick={() => appendToDisplay('/')} className="p-4 bg-blue-500 text-white rounded hover:bg-blue-600">/</button>
-        <button onClick={() => appendToDisplay('*')} className="p-4 bg-blue-500 text-white rounded hover:bg-blue-600">*</button>
-        <button onClick={() => appendToDisplay('-')} className="p-4 bg-blue-500 text-white rounded hover:bg-blue-600">-</button>
-
         {isScientific && (
           <>
-            <button onClick={() => appendToDisplay('(')} className="p-4 bg-gray-500 text-white rounded hover:bg-gray-600">(</button>
-            <button onClick={() => appendToDisplay(')')} className="p-4 bg-gray-500 text-white rounded hover:bg-gray-600">)</button>
+            <button onClick={() => appendToDisplay('Math.sqrt(')} className="p-4 bg-purple-500 text-white rounded hover:bg-purple-600">√</button>
+            <button onClick={() => appendToDisplay('**')} className="p-4 bg-purple-500 text-white rounded hover:bg-purple-600">^</button>
+          </>
+        )}
+        <button onClick={() => appendToDisplay('/')} className="p-4 bg-blue-500 text-white rounded hover:bg-blue-600">/</button>
+        <button onClick={() => appendToDisplay('*')} className="p-4 bg-blue-500 text-white rounded hover:bg-blue-600">*</button>
+
+        {/* Scientific Row */}
+        {isScientific && (
+          <>
             <button onClick={() => appendToDisplay('Math.sin(')} className="p-4 bg-purple-500 text-white rounded hover:bg-purple-600">sin</button>
             <button onClick={() => appendToDisplay('Math.cos(')} className="p-4 bg-purple-500 text-white rounded hover:bg-purple-600">cos</button>
             <button onClick={() => appendToDisplay('Math.tan(')} className="p-4 bg-purple-500 text-white rounded hover:bg-purple-600">tan</button>
-
-            <button onClick={() => appendToDisplay('Math.sqrt(')} className="p-4 bg-purple-500 text-white rounded hover:bg-purple-600">√</button>
-            <button onClick={() => appendToDisplay('**')} className="p-4 bg-purple-500 text-white rounded hover:bg-purple-600">^</button>
-            <button onClick={() => appendToDisplay('%')} className="p-4 bg-purple-500 text-white rounded hover:bg-purple-600">%</button>
+            <button onClick={() => appendToDisplay('(')} className="p-4 bg-gray-500 text-white rounded hover:bg-gray-600">(</button>
+            <button onClick={() => appendToDisplay(')')} className="p-4 bg-gray-500 text-white rounded hover:bg-gray-600">)</button>
           </>
         )}
 
+        {/* Number Pad and Operations */}
         <button onClick={() => appendToDisplay('7')} className="p-4 bg-gray-600 text-white rounded hover:bg-gray-700">7</button>
         <button onClick={() => appendToDisplay('8')} className="p-4 bg-gray-600 text-white rounded hover:bg-gray-700">8</button>
         <button onClick={() => appendToDisplay('9')} className="p-4 bg-gray-600 text-white rounded hover:bg-gray-700">9</button>
-        <button onClick={() => appendToDisplay('+')} className="p-4 bg-blue-500 text-white rounded hover:bg-blue-600">+</button>
+        <button onClick={() => appendToDisplay('-')} className="p-4 bg-blue-500 text-white rounded hover:bg-blue-600">-</button>
 
         <button onClick={() => appendToDisplay('4')} className="p-4 bg-gray-600 text-white rounded hover:bg-gray-700">4</button>
         <button onClick={() => appendToDisplay('5')} className="p-4 bg-gray-600 text-white rounded hover:bg-gray-700">5</button>
         <button onClick={() => appendToDisplay('6')} className="p-4 bg-gray-600 text-white rounded hover:bg-gray-700">6</button>
-        <button onClick={calculateResult} className="row-span-2 p-4 bg-green-500 text-white rounded hover:bg-green-600">=</button>
+        <button onClick={() => appendToDisplay('+')} className="p-4 bg-blue-500 text-white rounded hover:bg-blue-600">+</button>
 
         <button onClick={() => appendToDisplay('1')} className="p-4 bg-gray-600 text-white rounded hover:bg-gray-700">1</button>
         <button onClick={() => appendToDisplay('2')} className="p-4 bg-gray-600 text-white rounded hover:bg-gray-700">2</button>
         <button onClick={() => appendToDisplay('3')} className="p-4 bg-gray-600 text-white rounded hover:bg-gray-700">3</button>
+        <button onClick={calculateResult} className="row-span-2 p-4 bg-green-500 text-white rounded hover:bg-green-600">=</button>
+
         <button onClick={() => appendToDisplay('0')} className="col-span-2 p-4 bg-gray-600 text-white rounded hover:bg-gray-700">0</button>
         <button onClick={() => appendToDisplay('.')} className="p-4 bg-gray-600 text-white rounded hover:bg-gray-700">.</button>
-        <button onClick={handleApiCall} className="p-4 bg-purple-500 text-white rounded hover:bg-purple-600">API</button>
+        {isScientific ? (
+          <button onClick={() => appendToDisplay('%')} className="p-4 bg-purple-500 text-white rounded hover:bg-purple-600">%</button>
+        ) : (
+          <button onClick={handleApiCall} className="p-4 bg-purple-500 text-white rounded hover:bg-purple-600">API</button>
+        )}
       </div>
     </div>
   );
