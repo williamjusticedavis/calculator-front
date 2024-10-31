@@ -5,12 +5,15 @@ const Calculator = () => {
   const [isScientific, setIsScientific] = useState(false);
 
   const appendToDisplay = (value) => {
+    if (value === '.' && display.endsWith('.')) return; // Prevent consecutive dots
+    // Prevent multiple dots within the same number
+    if (value === '.' && /(\d*\.\d*)$/.test(display)) return;
     setDisplay(display + value);
   };
 
   const calculateResult = () => {
     try {
-      setDisplay(eval(display).toString()); // Caution: eval can be unsafe for untrusted input
+      setDisplay(eval(display).toString()); // Be cautious with eval, especially with user input
     } catch {
       setDisplay('Error');
     }
@@ -49,6 +52,7 @@ const Calculator = () => {
       >
         {isScientific ? "Basic Mode" : "Scientific Mode"}
       </button>
+
       <div className={`grid gap-2 ${isScientific ? 'grid-cols-5' : 'grid-cols-4'}`}>
         <button onClick={clearDisplay} className="p-4 bg-red-500 text-white rounded hover:bg-red-600">C</button>
         <button onClick={() => appendToDisplay('/')} className="p-4 bg-blue-500 text-white rounded hover:bg-blue-600">/</button>
@@ -62,6 +66,10 @@ const Calculator = () => {
             <button onClick={() => appendToDisplay('Math.sin(')} className="p-4 bg-purple-500 text-white rounded hover:bg-purple-600">sin</button>
             <button onClick={() => appendToDisplay('Math.cos(')} className="p-4 bg-purple-500 text-white rounded hover:bg-purple-600">cos</button>
             <button onClick={() => appendToDisplay('Math.tan(')} className="p-4 bg-purple-500 text-white rounded hover:bg-purple-600">tan</button>
+
+            <button onClick={() => appendToDisplay('Math.sqrt(')} className="p-4 bg-purple-500 text-white rounded hover:bg-purple-600">√</button>
+            <button onClick={() => appendToDisplay('**')} className="p-4 bg-purple-500 text-white rounded hover:bg-purple-600">^</button>
+            <button onClick={() => appendToDisplay('%')} className="p-4 bg-purple-500 text-white rounded hover:bg-purple-600">%</button>
           </>
         )}
 
@@ -69,14 +77,6 @@ const Calculator = () => {
         <button onClick={() => appendToDisplay('8')} className="p-4 bg-gray-600 text-white rounded hover:bg-gray-700">8</button>
         <button onClick={() => appendToDisplay('9')} className="p-4 bg-gray-600 text-white rounded hover:bg-gray-700">9</button>
         <button onClick={() => appendToDisplay('+')} className="p-4 bg-blue-500 text-white rounded hover:bg-blue-600">+</button>
-
-        {isScientific && (
-          <>
-            <button onClick={() => appendToDisplay('Math.sqrt(')} className="p-4 bg-purple-500 text-white rounded hover:bg-purple-600">√</button>
-            <button onClick={() => appendToDisplay('**')} className="p-4 bg-purple-500 text-white rounded hover:bg-purple-600">^</button>
-            <button onClick={() => appendToDisplay('%')} className="p-4 bg-purple-500 text-white rounded hover:bg-purple-600">%</button>
-          </>
-        )}
 
         <button onClick={() => appendToDisplay('4')} className="p-4 bg-gray-600 text-white rounded hover:bg-gray-700">4</button>
         <button onClick={() => appendToDisplay('5')} className="p-4 bg-gray-600 text-white rounded hover:bg-gray-700">5</button>
