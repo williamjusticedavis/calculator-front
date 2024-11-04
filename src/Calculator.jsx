@@ -15,7 +15,7 @@ const Calculator = () => {
 
   const calculateResult = () => {
     try {
-      setDisplay(eval(display).toString()); // Caution: eval can be unsafe for untrusted input
+      setDisplay(eval(display).toString());
     } catch {
       setDisplay('Error');
     }
@@ -33,6 +33,7 @@ const Calculator = () => {
     try {
       const response = await fetch('https://calculator-back-mn8p.onrender.com/api/trigger');
       const data = await response.json();
+      console.log("Worked")
       alert(data.message);
     } catch (error) {
       alert('API request failed.');
